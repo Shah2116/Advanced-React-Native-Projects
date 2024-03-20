@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import LoginScreen from './src/screens/LoginScreen'
+import { NavigationContainer } from '@react-navigation/native';
+import TabNaviagtion from './src/Navigation/TabNaviagtion';
 
 const App = () => {
   return (
-    <View>
-      <LoginScreen />
-    </View>
+    <NavigationContainer>
+      <TabNaviagtion />
+    </NavigationContainer>
   );
 }
 

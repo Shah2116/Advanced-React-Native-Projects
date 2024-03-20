@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import React from 'react'
-import Color from '../utils/Color'
+import Color from '../../Utils/Color'
 
 const LoginScreen = () => {
   return (
     <View style={{ alignItems: 'center' }}>
-      <Image source={require('../assets/images/login.png')} style={styles.loginImage} />
+      <Image source={require('../../assets/images/login.png')} style={styles.loginImage} />
       <View style={styles.subContainer}>
         <Text style= {{fontSize: 27, color: Color.WHITE, textAlign:'center'}}>
             Let's Find
