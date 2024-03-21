@@ -3,24 +3,16 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
-const Signup = () => {
-    const [name, setName] = useState('')
+const Login = () => {
     const [email, setEmail] = useState('')
-    const [number, setNumber] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
     const navigation = useNavigation()
 
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
-                <Text style={styles.headingText}>Signup</Text>
-                <TextInput
-                    placeholder='Enter Name'
-                    style={styles.inputText}
-                    value={name}
-                    onChangeText={(text) => setName(text)}
-                />
+                <Text style={styles.headingText}>Login</Text>
+                
                 <TextInput
                     placeholder='Enter Eamil'
                     style={styles.inputText}
@@ -28,38 +20,24 @@ const Signup = () => {
                     onChangeText={(text) => setEmail(text)}
                 />
                 <TextInput
-                    placeholder='Enter Mobile Number'
-                    style={styles.inputText}
-                    keyboardType='number-pad'
-                      value={number}
-                    onChangeText={(text) => setNumber(text)}
-                />
-
-                <TextInput
                     placeholder='Enter Password'
                     style={styles.inputText}
                       value={password}
                     onChangeText={(text) => setPassword(text)}
-                />
-                <TextInput
-                    placeholder='Enter Confirm Password'
-                    style={styles.inputText}
-                      value={confirmPassword}
-                    onChangeText={(text) => setConfirmPassword(text)}
                 />
                 <TouchableOpacity style={styles.btn}>
                     <Text style={styles.btnText}>Sign Up</Text>
                 </TouchableOpacity>
                 <Text style={{ alignSelf: 'center', marginVertical: 20, fontSize: 20, color: '#000' }}>or</Text>
                 <TouchableOpacity>
-                    <Text style={styles.loginBtn} onPress={()=> navigation.navigate('Login')}>Login</Text>
+                    <Text style={styles.loginBtn} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-export default Signup
+export default Login
 
 const styles = StyleSheet.create({
     mainContainer: {
