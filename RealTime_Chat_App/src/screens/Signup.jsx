@@ -2,6 +2,8 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 
 const Signup = () => {
     const [name, setName] = useState('')
@@ -10,6 +12,20 @@ const Signup = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const navigation = useNavigation()
+
+    const userRegistration = () => {
+        const userId = uuid.v4()
+        const usersCollection = firestore().collection('user').doc(userId).set({
+            name: name,
+            email: email,
+            number: number,
+            password: password,
+            userId: userId,
+        }).then((res)=> {
+            console.log(res,"user created succesfully")
+            navigation.navigate('Login')
+    }).catch((error) =>console.error(error))
+    };
 
     return (
         <View style={styles.mainContainer}>
@@ -47,7 +63,9 @@ const Signup = () => {
                       value={confirmPassword}
                     onChangeText={(text) => setConfirmPassword(text)}
                 />
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn} onPress={() =>{
+                    return userRegistration()
+                }}>
                     <Text style={styles.btnText}>Sign Up</Text>
                 </TouchableOpacity>
                 <Text style={{ alignSelf: 'center', marginVertical: 20, fontSize: 20, color: '#000' }}>or</Text>

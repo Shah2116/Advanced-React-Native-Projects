@@ -2,11 +2,22 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import firestore from '@react-native-firebase/firestore';
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigation = useNavigation()
+
+    const userLogin = () => {
+     firestore().collection('user').where('email','==', email).get().then(
+        (res) => {
+            console.log(JSON.stringify(res.docs[0].data()));
+        }
+     ).catch((error) => {
+        console.log(error)
+     })
+    }
 
     return (
         <View style={styles.mainContainer}>
@@ -25,8 +36,10 @@ const Login = () => {
                       value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.btnText}>Sign Up</Text>
+                <TouchableOpacity style={styles.btn} onPress={() => {
+                    return userLogin()
+                }}>
+                    <Text style={styles.btnText}>Login</Text>
                 </TouchableOpacity>
                 <Text style={{ alignSelf: 'center', marginVertical: 20, fontSize: 20, color: '#000' }}>or</Text>
                 <TouchableOpacity>
