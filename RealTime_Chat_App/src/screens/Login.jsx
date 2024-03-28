@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -10,13 +11,25 @@ const Login = () => {
     const navigation = useNavigation()
 
     const userLogin = () => {
-     firestore().collection('user').where('email','==', email).get().then(
+     data =firestore().collection('users').where('email','==', email).get().then(
         (res) => {
             console.log(JSON.stringify(res.docs[0].data()));
+            goToNext(
+                res.docs[0].data().name,
+                res.docs[0].data().email,
+                res.docs[0].data().userId
+                )
         }
      ).catch((error) => {
         console.log(error)
      })
+    }
+
+    const goToNext= async (name, email, userId ) => {
+       await AsyncStorage.setItem("Name", name);
+       await AsyncStorage.setItem("Email", email);
+       await AsyncStorage.setItem("userId", userId);
+       navigation.navigate("Home")
     }
 
     return (

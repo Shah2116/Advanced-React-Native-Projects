@@ -15,14 +15,14 @@ const Signup = () => {
 
     const userRegistration = () => {
         const userId = uuid.v4()
-        const usersCollection = firestore().collection('user').doc(userId).set({
+        firestore().collection('users').doc(userId).set({
             name: name,
             email: email,
             number: number,
             password: password,
             userId: userId,
         }).then((res)=> {
-            console.log(res,"user created succesfully")
+            console.log("user created succesfully")
             navigation.navigate('Login')
     }).catch((error) =>console.error(error))
     };
