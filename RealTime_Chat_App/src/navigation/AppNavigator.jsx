@@ -6,6 +6,7 @@ import Login from '../screens/Login'
 import Home from '../screens/Home'
 import Users from '../tabs/Users'
 import Settings from '../tabs/Settings'
+import Chat from '../screens/Chat'
 
 const Stack = createStackNavigator()
 
@@ -42,6 +43,7 @@ const AppNavigator = () => {
                   headerShown: false
               }}
           />
+          <Stack.Screen name='Chat' component={Chat} />
       </Stack.Navigator>
   )
 }

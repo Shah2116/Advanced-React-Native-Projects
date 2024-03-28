@@ -1,11 +1,13 @@
-import { Dimensions, Image, StyleSheet, Text, View, FlatList } from 'react-native'
+import { Dimensions, Image, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
+
 
 const Users = () => {
+    const navigation = useNavigation()
     const [users, setUsers] = useState([])
-    
     useEffect(() => {
         getUsers();
     },[])
@@ -13,7 +15,6 @@ const Users = () => {
     const getUsers = async() => {
         const tempData = []
         const email = await AsyncStorage.getItem('Email')
-        console.log(email)
        firestore()
        .collection('users')
        .where('email',"!=", email)
@@ -34,7 +35,7 @@ const Users = () => {
           <View style={styles.header}>
               <Text style={styles.headerText}>RN Firebase Chat App</Text>
           </View>
-          <View>
+          <TouchableOpacity onPress={() => (navigation.navigate('Chat'))}>
             <FlatList
             data={users}
             renderItem={({item}) => 
@@ -45,7 +46,7 @@ const Users = () => {
             </Text>
             </View>}
              />
-          </View>
+          </TouchableOpacity>
       </View>
   )
   
