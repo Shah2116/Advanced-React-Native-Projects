@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 
 
 const Users = () => {
+    let id = ''
     const navigation = useNavigation()
     const [users, setUsers] = useState([])
     useEffect(() => {
@@ -13,6 +14,7 @@ const Users = () => {
     },[])
 
     const getUsers = async() => {
+        id = await AsyncStorage.getItem('userId')
         const tempData = []
         const email = await AsyncStorage.getItem('Email')
        firestore()
@@ -35,18 +37,18 @@ const Users = () => {
           <View style={styles.header}>
               <Text style={styles.headerText}>RN Firebase Chat App</Text>
           </View>
-          <TouchableOpacity onPress={() => (navigation.navigate('Chat'))}>
+          <View >
             <FlatList
             data={users}
-            renderItem={({item}) => 
-            <View style={styles.userItems}>
+            renderItem={({item,index}) => 
+            <TouchableOpacity style={styles.userItems} onPress={() => (navigation.navigate('Chat',{data: item, id: id}))}>
             <Image source={require('../assets/images/user.png')} style={styles.userImage}/>
             <Text style={styles.userName}>
                 {item.name}
             </Text>
-            </View>}
+            </TouchableOpacity>}
              />
-          </TouchableOpacity>
+          </View>
       </View>
   )
   
